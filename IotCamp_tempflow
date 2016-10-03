@@ -1,0 +1,78 @@
+[  
+   {  
+      "id":"91c67576.f693d8",
+      "type":"debug",
+      "z":"9d8ed41d.a14e38",
+      "name":"",
+      "active":true,
+      "console":"false",
+      "complete":"payload",
+      "x":971,
+      "y":148,
+      "wires":[  
+
+      ]
+   },
+   {  
+      "id":"3a858038.92e82",
+      "type":"json",
+      "z":"9d8ed41d.a14e38",
+      "name":"",
+      "x":799,
+      "y":146,
+      "wires":[  
+         [  
+            "91c67576.f693d8"
+         ]
+      ]
+   },
+   {  
+      "id":"3117650.51d529c",
+      "type":"function",
+      "z":"9d8ed41d.a14e38",
+      "name":"Create Payload",
+      "func":"var gateway = \"IntelGateway\";\nreturn {\n    payload: {\n                deviceID: gateway,\n                temp: msg.payload\n            \n    }\n};\n",
+      "outputs":1,
+      "noerr":0,
+      "x":611,
+      "y":145,
+      "wires":[  
+         [  
+            "3a858038.92e82"
+         ]
+      ]
+   },
+   {  
+      "id":"4bbbf617.037e48",
+      "type":"function",
+      "z":"9d8ed41d.a14e38",
+      "name":"Temperature data conversion ",
+      "func":"msg.payload = msg.payload * 3.3 / 5;\nreturn msg;\n",
+      "outputs":1,
+      "noerr":0,
+      "x":360,
+      "y":146,
+      "wires":[  
+         [  
+            "3117650.51d529c"
+         ]
+      ]
+   },
+   {  
+      "id":"8a329309.3577c",
+      "type":"upm-grove-temperature",
+      "z":"9d8ed41d.a14e38",
+      "name":"Temperature",
+      "platform":"512",
+      "unit":"C",
+      "pin":"1",
+      "interval":"2000",
+      "x":107,
+      "y":145,
+      "wires":[  
+         [  
+            "4bbbf617.037e48"
+         ]
+      ]
+   }
+]
